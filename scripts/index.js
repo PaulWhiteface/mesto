@@ -35,7 +35,7 @@ function handleFormSubmit(evt) {
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
 
-  popup.classList.remove('popup_active');
+  closePopup();
 
 }
 
