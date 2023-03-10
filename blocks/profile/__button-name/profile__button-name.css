@@ -8,7 +8,7 @@
   background-color: #000;
   border: 1px solid #FFF;
   background-image: url(../../../images/small-button.svg);
-  margin-left: 24px;
+  margin-left: 20px;
   margin-bottom: 22px;
   transition: opacity 0.3s;
 }
