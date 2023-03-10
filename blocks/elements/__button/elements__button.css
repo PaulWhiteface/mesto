@@ -1,0 +1,15 @@
+.elements__button {
+  margin-right: 20px;
+  margin-top: 25px;
+  height: 19px;
+  width: 22px;
+  border: 0;
+  padding: 0;
+  background-color: #FFF;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.elements__button:hover {
+  opacity: 50%;
+}

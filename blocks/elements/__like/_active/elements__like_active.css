@@ -1,0 +1,5 @@
+.elements__like_active {
+  background-image: url(images/heart-black.svg);
+  background-position: center;
+  background-size: cover;
+}
