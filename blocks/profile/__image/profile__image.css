@@ -2,14 +2,13 @@
   height: 120px;
   width: 120px;
   object-fit: cover;
-  border-radius: 100px;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 1059px) {
   .profile__image {
   	height: 240px;
     width: 240px;
-    border-radius: 200px;
   }
 }
 
@@ -17,6 +16,5 @@
   .profile__image {
   	height: 120px;
     width: 120px;
-    border-radius: 100px;
   }
 }
