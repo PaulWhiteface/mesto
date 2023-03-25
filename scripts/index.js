@@ -44,9 +44,6 @@ const cardLinkInput = formElementCard.querySelector('.popup__input_text_link');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__description');
 
-const cardPhoto = htmlElement.querySelector('.card__photo');
-const cardText = htmlElement.querySelector('.card__text');
-
 const imageInPopup = document.querySelector('.popup__image');
 const textInPopup = document.querySelector('.popup__image-text');
 
@@ -57,14 +54,23 @@ const imagePopup = document.querySelector('.popup-image');
 initialCards.forEach(renderItem);
 //функция добавления карточек в начало листа
 function renderItem (item) {
+  const addHtml = createCard(item);
+  list.prepend(addHtml);
+}
+
+function createCard(item) {
   const htmlElement = templateItem.cloneNode(true);
+
+  const cardPhoto = htmlElement.querySelector('.card__photo');
+  const cardText = htmlElement.querySelector('.card__text');
+
   cardPhoto.src = item.link;
   cardPhoto.alt = item.name;
   cardText.textContent = item.name;
 
   setEventListeners(htmlElement);
   cardPhoto.addEventListener('click', () => {handleCardClick(item)});
-  list.prepend(htmlElement);
+  return htmlElement;
 }
 
 function handleDelete (event) {
