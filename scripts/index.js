@@ -44,6 +44,12 @@ const cardLinkInput = formElementCard.querySelector('.popup__input_text_link');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__description');
 
+const cardPhoto = htmlElement.querySelector('.card__photo');
+const cardText = htmlElement.querySelector('.card__text');
+
+const imageInPopup = document.querySelector('.popup__image');
+const textInPopup = document.querySelector('.popup__image-text');
+
 const profilePopup = document.querySelector('.popup-profile');
 const cardPopup = document.querySelector('.popup-card');
 const imagePopup = document.querySelector('.popup-image');
@@ -52,11 +58,12 @@ initialCards.forEach(renderItem);
 //функция добавления карточек в начало листа
 function renderItem (item) {
   const htmlElement = templateItem.cloneNode(true);
-  htmlElement.querySelector('.card__photo').src = item.link;
-  htmlElement.querySelector('.card__text').textContent = item.name;
+  cardPhoto.src = item.link;
+  cardPhoto.alt = item.name;
+  cardText.textContent = item.name;
 
   setEventListeners(htmlElement);
-  htmlElement.querySelector('.card__photo').addEventListener('click', () => {cardListener(item)});
+  cardPhoto.addEventListener('click', () => {handleCardClick(item)});
   list.prepend(htmlElement);
 }
 
@@ -75,9 +82,10 @@ function setEventListeners (htmlElement) {
   htmlElement.querySelector('.card__button').addEventListener('click', handleLike);
 }
 
-function cardListener (item) { 
-  document.querySelector('.popup__image').src = item.link;
-  document.querySelector('.popup__image-text').textContent = item.name;
+function handleCardClick (item) { 
+  imageInPopup.src = item.link;
+  imageInPopup.alt = item.name;
+  textInPopup.textContent = item.name;
   showPopup(imagePopup);
 }
 //Функции открытия и закрытия попапов
@@ -90,10 +98,10 @@ function closePopup(popup) {
   
 }
 //Попап профиля
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
 
 profileButton.addEventListener('click', () => {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
   showPopup(profilePopup);
 });
 
@@ -124,7 +132,7 @@ closeButtonCard.addEventListener('click', () => {
 function handleFormSubmitCard(evt) {
   evt.preventDefault()
 
-  const newCard = renderItem ({
+  renderItem ({
     name: cardNameInput.value,
     link: cardLinkInput.value
   });
