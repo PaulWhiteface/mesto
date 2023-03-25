@@ -28,48 +28,6 @@
 
       <section class="elements main__elements">
         <ul class="elements__grid">
-          <li class="elements__item">
-            <img class="elements__photo" src="images/kusto1.jpg" alt="Батискаф Кусто">
-            <div class="elements__description">
-              <h2 class="elements__text">Батискаф</h2>
-              <button class="elements__button" type="button"><img class="elements__like" src="images/heart.svg" alt="Белое сердце"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elbrus.jpg" alt="Эльбрус">
-            <div class="elements__description">
-              <h2 class="elements__text">Гора Эльбрус</h2>
-              <button class="elements__button" type="button"><img class="elements__like" src="images/heart.svg" alt="Белое сердце"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__photo" src="images/dombai.jpg" alt="Домбай">
-            <div class="elements__description">
-              <h2 class="elements__text"> Домбай</h2>
-              <button class="elements__button" type="button"><img class="elements__like" src="images/heart.svg" alt="Белое сердце"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elbrus.jpg" alt="Эльбрус">
-            <div class="elements__description">
-              <h2 class="elements__text">Гора Эльбрус</h2>
-              <button class="elements__button" type="button"><img class="elements__like" src="images/heart.svg" alt="Белое сердце"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__photo" src="images/dombai.jpg" alt="Домбай">
-            <div class="elements__description">
-              <h2 class="elements__text">Домбай</h2>
-              <button class="elements__button" type="button"><img class="elements__like" src="images/heart.svg" alt="Белое сердце"></button>
-            </div>
-          </li>
-          <li class="elements__item">
-            <img class="elements__photo" src="images/karach.jpg" alt="Карачаево-Черкессия">
-            <div class="elements__description">
-              <h2 class="elements__text">Карачаево-Черкессия</h2>
-              <button class="elements__button" type="button"><img class="elements__like" src="images/heart.svg" alt="Белое сердце"></button>
-            </div>
-          </li>
         </ul>
       </section>
     </main> 
@@ -78,20 +36,49 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup-profile">
       <div class="popup__container">
         <h2 class="popup__head">Редактировать профиль</h2>
         <button class="popup__close" type="button"></button>
-        <form class="popup__form" name="form-popup">
-          <input class="popup__input popup__input_text_name" type="text" name="form-popup">
-          <input class="popup__input popup__input_text_job" type="text" name="form-popup">
+        <form class="popup__form popup__form-profile" name="form-popup">
+          <input class="popup__input popup__input_text_name" type="text" name="form-popup" placeholder="Имя">
+          <input class="popup__input popup__input_text_job" type="text" name="form-popup" placeholder="Ваша деятельность">
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
       </div>
-      
     </div>
 
+    <div class="popup popup-card">
+      <div class="popup__container">
+        <h2 class="popup__head">Новое место</h2>
+        <button class="popup__close popup__close-card" type="button"></button>
+        <form class="popup__form popup__form-card" name="form-popup">
+          <input class="popup__input popup__input_text_card" type="text" name="form-popup" placeholder="Название">
+          <input class="popup__input popup__input_text_link" type="text" name="form-popup" placeholder="Ссылка на картинку">
+          <button class="popup__button popup__button-card" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-image">
+      <div class="popup__image-container">
+        <img class="popup__image" src="">
+        <h2 class="popup__image-text"></h2>
+        <button class="popup__close popup__close-image" type="button"></button>
+      </div>
+    </div>
   </div>
+
+  <template class="template-card">
+    <li class="card">
+      <img class="card__photo" src="" alt="">
+      <button class="card__delete" type="button"><img class="card__trash" src="images/trash.svg" alt="мусорка"></button>
+      <div class="card__description">
+        <h2 class="card__text"></h2>
+        <button class="card__button" type="button"><img class="card__like" src="images/heart.svg" alt="Белое сердце"></button>
+      </div>
+    </li>
+  </template>
 
   <script src="./scripts/index.js"></script>
 </body>

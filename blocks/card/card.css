@@ -1,4 +1,5 @@
-.elements__item {
+.card {
   background-color: #FFF;
   border-radius: 10px;
+  position: relative;
 }
