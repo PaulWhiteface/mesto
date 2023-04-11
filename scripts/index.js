@@ -50,6 +50,12 @@ const textInPopup = document.querySelector('.popup__image-text');
 const profilePopup = document.querySelector('.popup-profile');
 const cardPopup = document.querySelector('.popup-card');
 const imagePopup = document.querySelector('.popup-image');
+
+const profileInputs = formElementProfile.querySelectorAll('.popup__input');
+const profileSubmitButton = formElementProfile.querySelector('.popup__button-profile');
+const cardInputs = formElementCard.querySelectorAll('.popup__input-card');
+const cardSubmitButton = formElementCard.querySelector('.popup__button-card');
+
 //Массив с карточками выводит на страницу и навешивает на них события 
 initialCards.forEach(renderItem);
 //функция добавления карточек в начало листа
@@ -60,7 +66,6 @@ function renderItem (item) {
 
 function createCard(item) {
   const htmlElement = templateItem.cloneNode(true);
-
   const cardPhoto = htmlElement.querySelector('.card__photo');
   const cardText = htmlElement.querySelector('.card__text');
 
@@ -97,15 +102,34 @@ function handleCardClick (item) {
 //Функции открытия и закрытия попапов
 function showPopup (popup) {
   popup.classList.add('popup_active');
+  popup.addEventListener('mousedown', closeByOverlay);
+  document.addEventListener('keydown', closeByEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_active');
-  
+  popup.removeEventListener('mousedown', closeByOverlay);
+  document.removeEventListener('keydown', closeByEscape);
+}
+
+function closeByOverlay (evt) {
+  if (evt.target === evt.currentTarget) {
+    const activePopup = document.querySelector('.popup_active'); //объявляем активный в данный момент попап
+    closePopup(activePopup);
+  }
+}
+
+function closeByEscape (evt) {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup_active');
+    closePopup(activePopup);
+  }
 }
 //Попап профиля
 
 profileButton.addEventListener('click', () => {
+  disableButton(profileSubmitButton, formObj);
+  resetValidationErrors(profileInputs, formObj);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   showPopup(profilePopup);
@@ -116,7 +140,6 @@ closeButtonProfile.addEventListener('click', () => {
 });
 
 function handleFormSubmitProfile(evt) {
-  evt.preventDefault()
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -128,6 +151,8 @@ formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 
 //Попап карточек
 cardButton.addEventListener('click', () => {
+  disableButton(cardSubmitButton, formObj);
+  resetValidationErrors(cardInputs, formObj);
   showPopup(cardPopup);
 });
 
@@ -136,7 +161,6 @@ closeButtonCard.addEventListener('click', () => {
 });
 
 function handleFormSubmitCard(evt) {
-  evt.preventDefault()
 
   renderItem ({
     name: cardNameInput.value,
