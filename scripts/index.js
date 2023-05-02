@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -25,6 +28,14 @@ const initialCards = [
   }
 ];
 
+const formObj = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disable',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__error_visible'
+  };
+
 const profileButton = document.querySelector('.profile__button-name');
 const cardButton = document.querySelector('.profile__button-photo');
 const closeButtonProfile = document.querySelector('.popup__close');
@@ -33,7 +44,6 @@ const closeButtonImage = document.querySelector('.popup__close-image');
 
 const formElementProfile = document.querySelector('.popup__form-profile');
 const formElementCard = document.querySelector('.popup__form-card')
-const templateItem = document.querySelector('.template-card').content;
 const list = document.querySelector('.elements__grid');
 
 const nameInput = formElementProfile.querySelector('.popup__input_text_name');
@@ -44,63 +54,37 @@ const cardLinkInput = formElementCard.querySelector('.popup__input_text_link');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__description');
 
-const imageInPopup = document.querySelector('.popup__image');
-const textInPopup = document.querySelector('.popup__image-text');
-
 const profilePopup = document.querySelector('.popup-profile');
 const cardPopup = document.querySelector('.popup-card');
 const imagePopup = document.querySelector('.popup-image');
 
-const profileInputs = formElementProfile.querySelectorAll('.popup__input');
-const profileSubmitButton = formElementProfile.querySelector('.popup__button-profile');
-const cardInputs = formElementCard.querySelectorAll('.popup__input-card');
-const cardSubmitButton = formElementCard.querySelector('.popup__button-card');
+//validation
+const formProfileInstance = new FormValidator(formElementProfile, formObj);
+const formCardInstance = new FormValidator(formElementCard, formObj);
+
+formProfileInstance.enableValidation();
+formCardInstance.enableValidation();
 
 //Массив с карточками выводит на страницу и навешивает на них события 
-initialCards.forEach(renderItem);
+initialCards.forEach((card) => {
+  const newCard = new Card(card, '.template-card');
+  const cardMarkdown = newCard.createCard();
+  list.prepend(cardMarkdown);
+})
+
 //функция добавления карточек в начало листа
 function renderItem (item) {
-  const addHtml = createCard(item);
+  const makeCard = new Card(item, '.template-card');
+  const addHtml = makeCard.createCard();
   list.prepend(addHtml);
 }
 
-function createCard(item) {
-  const htmlElement = templateItem.cloneNode(true);
-  const cardPhoto = htmlElement.querySelector('.card__photo');
-  const cardText = htmlElement.querySelector('.card__text');
-
-  cardPhoto.src = item.link;
-  cardPhoto.alt = item.name;
-  cardText.textContent = item.name;
-
-  setEventListeners(htmlElement);
-  cardPhoto.addEventListener('click', () => {handleCardClick(item)});
-  return htmlElement;
-}
-
-function handleDelete (event) {
-  const card = event.target.closest('.card');
-  card.remove();
-}
-
-function handleLike (event) {
-  const cardLike = event.target.closest('.card__like');
-  cardLike.classList.toggle('card__like_active');
-}
-
-function setEventListeners (htmlElement) {
-  htmlElement.querySelector('.card__delete').addEventListener('click', handleDelete);
-  htmlElement.querySelector('.card__button').addEventListener('click', handleLike);
-}
-
-function handleCardClick (item) { 
-  imageInPopup.src = item.link;
-  imageInPopup.alt = item.name;
-  textInPopup.textContent = item.name;
-  showPopup(imagePopup);
-}
 //Функции открытия и закрытия попапов
 function showPopup (popup) {
+  formProfileInstance.disableButton();
+  formCardInstance.disableButton();
+  formProfileInstance.resetValidationErrors();
+  formCardInstance.resetValidationErrors();
   popup.classList.add('popup_active');
   popup.addEventListener('mousedown', closeByOverlay);
   document.addEventListener('keydown', closeByEscape);
@@ -128,8 +112,6 @@ function closeByEscape (evt) {
 //Попап профиля
 
 profileButton.addEventListener('click', () => {
-  disableButton(profileSubmitButton, formObj);
-  resetValidationErrors(profileInputs, formObj);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   showPopup(profilePopup);
@@ -151,8 +133,6 @@ formElementProfile.addEventListener('submit', handleFormSubmitProfile);
 
 //Попап карточек
 cardButton.addEventListener('click', () => {
-  disableButton(cardSubmitButton, formObj);
-  resetValidationErrors(cardInputs, formObj);
   showPopup(cardPopup);
 });
 
@@ -161,7 +141,6 @@ closeButtonCard.addEventListener('click', () => {
 });
 
 function handleFormSubmitCard(evt) {
-
   renderItem ({
     name: cardNameInput.value,
     link: cardLinkInput.value
@@ -175,3 +154,5 @@ formElementCard.addEventListener('submit', handleFormSubmitCard);
 closeButtonImage.addEventListener('click', () => {
   closePopup(imagePopup);
 })
+
+export {showPopup, imagePopup}
