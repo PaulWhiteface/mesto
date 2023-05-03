@@ -11,6 +11,9 @@ class FormValidator {
   enableValidation () {
     this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._formButton = this._form.querySelector(this._submitButtonSelector);
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
     this._handleInput();
   }
 
@@ -19,7 +22,7 @@ class FormValidator {
       input.addEventListener('input', () => {
           this._checkInputValidity(input);
           if (this._hasInvalidInput()) {
-            this._disableButton();
+            this.disableButton();
           } else {
             this._enableButton();
           }

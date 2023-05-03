@@ -1,10 +1,9 @@
-import {showPopup, imagePopup} from './index.js';
-
 class Card {
-  constructor(card, templateSelector) {
+  constructor(card, templateSelector, handleCardClick) {
     this._name = card.name
     this._link = card.link
     this._templateSelector = templateSelector
+    this._handleCardClick = handleCardClick
   }
 
   _getTemplate () {
@@ -17,39 +16,33 @@ class Card {
 
   createCard () {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.card__photo')
+    this._cardText = this._element.querySelector('.card__text')
+    this._cardLike = this._element.querySelector('.card__button')
+    this._cardDeleteButton = this._element.querySelector('.card__delete')
     this._setEventListeners();
 
-    this._element.querySelector('.card__photo').src = this._link;
-    this._element.querySelector('.card__photo').alt = this._name;
-    this._element.querySelector('.card__text').textContent = this._name;
-  
-    this._element.querySelector('.card__photo').addEventListener('click', this._handleCardClick);
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardText.textContent = this._name;
+
     return this._element;
   }
 
   _handleDelete = (event) => {
-    const isCard = event.target.closest('.card');
-    isCard.remove();
+    this._isCard = event.target.closest('.card');
+    this._isCard.remove();
   }
   
   _handleLike = (event) => {
-    const cardLike = event.target.closest('.card__like');
-    cardLike.classList.toggle('card__like_active');
+    this._cardLike = event.target.closest('.card__like');
+    this._cardLike.classList.toggle('card__like_active');
   }
   
   _setEventListeners () {
-    this._element.querySelector('.card__delete').addEventListener('click', this._handleDelete);
-    this._element.querySelector('.card__button').addEventListener('click', this._handleLike);
-  }
-
-  _handleCardClick = () => { 
-    const imageInPopup = document.querySelector('.popup__image');
-    const textInPopup = document.querySelector('.popup__image-text');
-
-    imageInPopup.src = this._link;
-    imageInPopup.alt = this._name;
-    textInPopup.textContent = this._name;
-    showPopup(imagePopup);
+    this._cardDeleteButton.addEventListener('click', this._handleDelete);
+    this._cardLike.addEventListener('click', this._handleLike);
+    this._cardImage.addEventListener('click', () => {this._handleCardClick(this._name, this._link)});
   }
 }
 
