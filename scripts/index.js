@@ -58,6 +58,10 @@ const profilePopup = document.querySelector('.popup-profile');
 const cardPopup = document.querySelector('.popup-card');
 const imagePopup = document.querySelector('.popup-image');
 
+const imageInPopup = document.querySelector('.popup__image');
+const textInPopup = document.querySelector('.popup__image-text');
+
+
 //validation
 const formProfileInstance = new FormValidator(formElementProfile, formObj);
 const formCardInstance = new FormValidator(formElementCard, formObj);
@@ -66,13 +70,13 @@ formProfileInstance.enableValidation();
 formCardInstance.enableValidation();
 
 //Массив с карточками выводит на страницу и навешивает на них события 
-initialCards.forEach((item) => {makeCard(item)});
+initialCards.forEach((item) => {renderItem(makeCard(item))});
 
 //создание карточки
 function makeCard (item) {
   const newCard = new Card(item, '.template-card', handleCardClick);
   const addHtml = newCard.createCard();
-  renderItem(addHtml);
+  return addHtml;
 }
 
 //функция добавления карточек в начало листа
@@ -107,9 +111,6 @@ function closeByEscape (evt) {
 }
 
 function handleCardClick (name, link) {
-    const imageInPopup = document.querySelector('.popup__image');
-    const textInPopup = document.querySelector('.popup__image-text');
-
     imageInPopup.src = this._link;
     imageInPopup.alt = this._name;
     textInPopup.textContent = this._name;
@@ -151,10 +152,10 @@ closeButtonCard.addEventListener('click', () => {
 });
 
 function handleFormSubmitCard(evt) {
-  makeCard ({
+  renderItem(makeCard ({
     name: cardNameInput.value,
     link: cardLinkInput.value
-  });
+  }));
   evt.target.reset();
   closePopup(cardPopup);
 }
