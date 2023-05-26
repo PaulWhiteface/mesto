@@ -4,58 +4,18 @@ import PopupWithImage from './PopupWithImage.js';
 import UserInfo from './UserInfo.js';
 import Section from './Section.js';
 import PopupWithForm from './PopupWithForm.js';
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const formObj = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disable',
-  inputErrorClass: 'popup__input_error',
-  errorClass: 'popup__error_visible'
-  };
-
-const profileButton = document.querySelector('.profile__button-name');
-const cardButton = document.querySelector('.profile__button-photo');
-
-const formElementProfile = document.querySelector('.popup__form-profile');
-const formElementCard = document.querySelector('.popup__form-card')
+import { initialCards, formObj, profileButton, cardButton, formElementProfile, formElementCard } from './constants.js';
 
 
 
-//validation
+//validation 
 const formProfileInstance = new FormValidator(formElementProfile, formObj);
 const formCardInstance = new FormValidator(formElementCard, formObj);
 
 //PROFILE
 const userProfile = new UserInfo({nickname: '.profile__name', job: '.profile__description'});
 function editProfile (data) {
-  userProfile.setUserInfo({nickname: data.nickname, job: data.job}); //сохраняем вписаные значения
+  userProfile.setUserInfo({nickname: data.nickname, job: data.job}); //устанавливаем вписаные значения
 }
 
 const profileForm = new PopupWithForm('.popup-profile', {submit: editProfile});
