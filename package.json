@@ -16,16 +16,16 @@
     "style-loader": "^3.3.3",
     "webpack": "^5.84.1",
     "webpack-cli": "^5.1.1",
-    "webpack-dev-server": "^4.15.0"
-  },
-  "scripts": {
-    "build": "webpack",
-    "dev": "webpack serve --open --mode development"
-  },
-  "dependencies": {
+    "webpack-dev-server": "^4.15.0",
     "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.22.2",
     "babel-loader": "^9.1.2",
     "cssnano": "^6.0.1"
+  },
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode production",
+    "dev": "webpack serve --open --mode development"
+  },
+  "dependencies": {
   }
 }
