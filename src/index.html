@@ -4,17 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="page__container">
     <header class="header page__header">
-      <img class="header__logo" src="images/header__logo.svg" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/header__logo.svg')%>" alt="Логотип">
     </header>
 
     <main class="main">
       <section class="profile main__profile">
-        <img class="profile__image" src="images/avatar.jpg" alt="Жак-Ив Кусто">
+        <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="Жак-Ив Кусто">
         <div class="profile__info">
           <div class="profile__text">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -76,15 +75,14 @@
   <template class="template-card">
     <li class="card">
       <img class="card__photo">
-      <button class="card__delete" type="button"><img class="card__trash" src="images/trash.svg" alt="мусорка"></button>
+      <button class="card__delete" type="button"><img class="card__trash" src="<%=require('./images/trash.svg')%>" alt="мусорка"></button>
       <div class="card__description">
         <h2 class="card__text"></h2>
-        <button class="card__button" type="button"><img class="card__like" src="images/heart.svg" alt="Белое сердце"></button>
+        <button class="card__button" type="button"><img class="card__like" src="<%=require('./images/heart.svg')%>" alt="Белое сердце"></button>
       </div>
     </li>
   </template>
 
-  <script type="module" src="./pages/index.js"></script>
 </body>
 
 </html>

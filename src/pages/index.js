@@ -5,6 +5,7 @@ import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import { initialCards, formObj, profileButton, cardButton, formElementProfile, formElementCard } from '../utils/constants.js';
+import './index.css';
 
 
 
