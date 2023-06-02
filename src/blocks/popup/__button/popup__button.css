@@ -10,6 +10,7 @@
   border-radius: 2px;
   transition: opacity 0.3s;
   cursor: pointer;
+  margin-bottom: 36.51px;
 }
 
 @media screen and (max-width: 620px) {

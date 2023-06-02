@@ -1,5 +1,5 @@
 .card__description {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
