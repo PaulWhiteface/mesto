@@ -4,23 +4,19 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import { formObj, profileButton, cardButton, formElementProfile, formElementCard } from '../utils/constants.js';
+import { avatarButton, formElementAvatar, formObj, profileButton, cardButton, formElementProfile, formElementCard } from '../utils/constants.js';
 import './index.css';
 import Api from '../components/Api.js'; 
 import PopupWithDelete from '../components/PopupWithDelete.js';
 
-const api = new Api({
+
+const api = new Api({  // экземпляр класса Api
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-66',
   headers: {
     authorization: '2339a9f7-9e2a-43f5-90b5-72dfb8a8fa78',
     'Content-Type': 'application/json'
   }
 }); 
-
-const avatarButton = document.querySelector('.profile__change-image')
-
-const formElementAvatar = document.querySelector('.popup__form-avatar')
-
 
 
 let myId = ''
@@ -30,7 +26,7 @@ Promise.all([api.getUserInfoFromServer(), api.getInitialCards()]) //Прогон
   myId = user._id;
   userProfile.setAvatar(user.avatar);
   userProfile.setUserInfo(user.name, user.about);
-  cardList.addItem(initialCards)
+  cardList.renderItems(initialCards)
  })
  .catch((err) => {
   console.log(err);
@@ -54,6 +50,7 @@ function editProfile(data) { //Редактирование имени и опи
   api.setUserInfoOnServer(data.nickname, data.job)
   .then((res) => {
     userProfile.setUserInfo(res.name, res.about);
+    profileForm.close()
   })
   .catch(err => {
     console.log(err)
@@ -76,16 +73,17 @@ const profileAvatar = new PopupWithForm('.popup-avatar', {submit: editAvatar});
 profileAvatar.setEventListeners();
 
 function editAvatar(data) { //Установка аватара
-  profileForm.rendering(true)
+  profileAvatar.rendering(true)
   api.setProfileAvatar(data.avatarlink)
   .then((res) => {
     userProfile.setAvatar(res.avatar)
+    profileAvatar.close();
   })
   .catch(err => {
     console.log(err)
   })
   .finally(() => {
-    profileForm.rendering(false)
+    profileAvatar.rendering(false)
   })
 }
 
@@ -104,6 +102,7 @@ const addCard = new PopupWithForm('.popup-card', {submit: (item) => {
   api.addCardByHandle(item.name, item.link)  //Отправляет из инпутов нейм и линк на сервер, возвращает объект карточки со всеми значениями и устанавливает ее на страницу
   .then((item) => {
     cardList.setItem(makeCard(item)) 
+    addCard.close()
   })
   .catch((err) => {
     console.log(err)
@@ -131,8 +130,9 @@ function makeCard (item) {
     popupDelete.open()
     popupDelete.submitDelete(() => {
       api.handleDeleteCard(id)
-      .then((card) => {
-        newCard.handleDelete(card)
+      .then((res) => {
+        newCard.handleDelete(res)
+        popupDelete.close()
       })
       .catch(err => {
         console.log(err);

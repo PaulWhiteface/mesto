@@ -38,3 +38,7 @@ export const initialCards = [
   
   export const formElementProfile = document.querySelector('.popup__form-profile');
   export const formElementCard = document.querySelector('.popup__form-card')
+  
+  export const avatarButton = document.querySelector('.profile__change-image')
+  
+  export const formElementAvatar = document.querySelector('.popup__form-avatar')

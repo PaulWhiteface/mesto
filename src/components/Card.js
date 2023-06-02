@@ -36,6 +36,8 @@ class Card {
 
     this._likeLength.textContent = this._likes.length
 
+    this._cardLikeChecker()
+
     if (this._myId !== this._owner) {
       this._cardDeleteButton.classList.add('card__delete_disable');
     }
@@ -77,6 +79,10 @@ class Card {
     this._likes = likes
     this._likeLength.textContent = this._likes.length
 
+    this._cardLikeChecker()
+  }
+
+  _cardLikeChecker () {
     if(this.isLiked()) {
       this._likeActive()
     } else {
